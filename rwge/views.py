@@ -13,6 +13,8 @@ logger = logging.getLogger('rwge')
 @csrf_exempt
 def rwge_view(request):
     payload = loads(request.body)
+    logger.info(payload)
+
     response = {}
     if payload.get('type') == 'MESSAGE':
         text_response = rwge_check_message(payload)
@@ -28,7 +30,6 @@ def rwge_check_message(payload):
     :param message: message object from discord.py library
     :return: None; will have side effects if appropriate
     """
-    logger.info(payload)
 
     message_text = payload['message']['text']
     message_channel = payload.get('space', {}).get('displayName', 'unknown channel')
